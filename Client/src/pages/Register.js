@@ -47,6 +47,8 @@ function Register() {
     try {
       const res = await axiosConfig.post(REGISTER_URL, user);
       if (res.status === 201) {
+        // res contains user_id and token
+        console.log("res.data", res.data);
         setAuth(res.data);
         navigate("/dashboard", {
           replace: true,
@@ -75,7 +77,7 @@ function Register() {
       <Snackbar
         open={error}
         onClose={() => setError(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: "top", horizontal: "left" }}
         autoHideDuration={3000}
       >
         <Alert variant="filled" severity="error" sx={{ width: "100%" }}>
@@ -165,7 +167,10 @@ function Register() {
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Button
               sx={{ height: "45px", marginTop: 2 }}
-              onClick={() => navigate("/")}
+              onClick={() =>{
+                console.log("going to home route");
+                navigate("/")
+              }}
               startIcon={<ArrowBackIcon />}
             >
               Back

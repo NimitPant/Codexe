@@ -78,7 +78,7 @@ function Home() {
       <Snackbar
         open={error}
         onClose={() => setError(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         autoHideDuration={3000}
       >
         <Alert variant="filled" severity="error" sx={{ width: "100%" }}>
@@ -207,7 +207,10 @@ function Home() {
               variant="outlined"
               sx={{ height: "45px", flexGrow: 1 }}
               startIcon={<PersonAddIcon />}
-              onClick={() => navigate("/register")}
+              onClick={() => {
+                console.log("going to register route");
+                navigate("/register")
+              }}
             >
               Register
             </Button>

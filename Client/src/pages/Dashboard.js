@@ -13,17 +13,22 @@ import {
 import SettingsIcon from "@mui/icons-material/Settings";
 import WorkspacesIcon from "@mui/icons-material/Workspaces";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useTheme } from "@mui/material/styles";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+
 import { useNavigate } from "react-router-dom";
+
 import UserSpaces from "../components/Dashboard/UserSpaces";
 import UserSettings from "../components/Dashboard/UserSettings";
 import Profile from "../components/Dashboard/Profile";
+
 import { useAxios } from "../hooks/useAxios";
 import useAuth from "../hooks/useAuth";
 import useLocalStorage from "../hooks/useLocalStorage";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+
 import { ColorModeContext } from "../context/ColorModeContext";
-import { useTheme } from "@mui/material/styles";
+
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -40,6 +45,9 @@ const TabPanel = (props) => {
   );
 };
 
+
+// THIS OBJECT IS USED TO MANAGE/STORE THE STATE OF THE DASHBOARD
+// USED WITH THE REDUCER FUNCTION BELOW
 const initialState = {
   value: 0,
   listSpace: undefined,
@@ -50,6 +58,8 @@ const initialState = {
   showJoinSpaceBackdrop: false,
 };
 
+// THIS FUNCTION IS USED TO UPDATE THE STATE OF THE DASHBOARD
+// USES THE INITIAL STATE OBJECT ABOVE
 function reducer(state, action) {
   switch (action.type) {
     case "updateValue":
