@@ -12,3 +12,8 @@ const ACTIONS = {
 };
 
 module.exports = ACTIONS;
+
+
+//Purpose: Using a constants file like this prevents typos and makes the code more maintainable. 
+// If you need to change an event name, you only have to do it in one place. 
+// Every time you see ACTIONS.JOIN, the code is referring to the string "join".

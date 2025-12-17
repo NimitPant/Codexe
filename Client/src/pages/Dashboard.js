@@ -13,9 +13,10 @@ import {
 import SettingsIcon from "@mui/icons-material/Settings";
 import WorkspacesIcon from "@mui/icons-material/Workspaces";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useTheme } from "@mui/material/styles";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+
+import { useTheme } from "@mui/material/styles";
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +30,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 
 import { ColorModeContext } from "../context/ColorModeContext";
 
-
+// FOR TAB-SWITCHING LOGIC
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
@@ -46,19 +47,21 @@ const TabPanel = (props) => {
 };
 
 
-// THIS OBJECT IS USED TO MANAGE/STORE THE STATE OF THE DASHBOARD
+// OBJECT IS USED TO MANAGE/STORE THE STATE OF THE DASHBOARD
 // USED WITH THE REDUCER FUNCTION BELOW
+
+
 const initialState = {
-  value: 0,
-  listSpace: undefined,
-  originalSpace: null,
+  value: 0,  // value of the tab
+  listSpace: undefined,  // list of spaces, filtered on the basis of search query
+  originalSpace: null,  // original list of spaces, master list
   spaceId: "",
   spaceName: "",
   showCreateSpaceBackdrop: false,
   showJoinSpaceBackdrop: false,
 };
 
-// THIS FUNCTION IS USED TO UPDATE THE STATE OF THE DASHBOARD
+// FUNCTION USED TO UPDATE THE STATE OF THE DASHBOARD
 // USES THE INITIAL STATE OBJECT ABOVE
 function reducer(state, action) {
   switch (action.type) {
@@ -87,6 +90,7 @@ function Dashboard() {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [success, setSuccess] = useState(false);
+  // const [value, setValue]=useState(0);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState({ title: "", data: "" });
   const colorMode = useContext(ColorModeContext);
@@ -126,6 +130,7 @@ function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
+
   const handleLogout = () => {
     setAuth(null);
     localStorage.setItem("user", null);
@@ -134,7 +139,8 @@ function Dashboard() {
 
   return (
     <>
-      <Snackbar
+
+      <Snackbar // ERROR SNACKBAR
         open={error}
         onClose={() => setError(false)}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -146,11 +152,12 @@ function Dashboard() {
         </Alert>
       </Snackbar>
 
-      <Snackbar
+
+      <Snackbar // SUCCESS SNACKBAR
         open={success}
         onClose={() => setSuccess(false)}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        autoHideDuration={2500}
+        autoHideDuration={3000}
       >
         <Alert variant="filled" severity="success" sx={{ width: "100%" }}>
           <AlertTitle>{message.title}</AlertTitle>
@@ -158,7 +165,7 @@ function Dashboard() {
         </Alert>
       </Snackbar>
 
-      <Box
+      <Box // HEADER
         sx={{
           position: "fixed",
           width: "100vw",
@@ -167,24 +174,31 @@ function Dashboard() {
           justifyContent: "space-between",
         }}
       >
-        <Box
-                component="img"
-                sx={{
-                  height: "70px",
-                  width: "80px",
-                }}
-                alt="No spaces found"
-                src="/logo1.png"
-              />
-        <Box>
-          <IconButton onClick={colorMode.toggleColorMode}>
+
+        <Box // HEADER -> LOGO 
+            component="img"
+            sx={{
+              height: "70px",
+              width: "80px",
+            }}
+            alt="No spaces found"
+            src="/logo1.png"
+        />
+
+        {/* HEADER -> THEME TOGGLE AND LOGOUT BUTTON */}
+        <Box> 
+
+          {/* HEADER -> THEME TOGGLE */}
+          <IconButton onClick={colorMode.toggleColorMode}> 
             {theme.palette.mode === "light" ? (
               <DarkModeIcon sx={{ fontSize: 30 }} />
             ) : (
               <LightModeIcon sx={{ fontSize: 30 }} />
             )}
           </IconButton>
-          <Button
+
+          {/* HEADER -> LOGOUT BUTTON */}
+          <Button 
             variant="contained"
             sx={{ m: 3 }}
             startIcon={<LogoutIcon />}
@@ -192,13 +206,17 @@ function Dashboard() {
           >
             Logout
           </Button>
-          <Profile loggedInUser={auth} />
+
+          {/* HEADER -> PROFILE COMPONENT*/} 
+          <Profile loggedInUser={auth} /> 
+
         </Box>
       </Box>
-      <Grid
-        container
-        sx={{ minHeight: "100vh", backgroundColor: "background.default" }}
-      >
+
+      {/* GRID CONTAINER BELOW THE HEADER */}
+      <Grid container sx={{ minHeight: "100vh", backgroundColor: "background.default" }} >
+
+        {/* GRID ITEM 1, TABS */}
         <Grid item xs={12} sx={{ height: "30vh" }}>
           <Box
             sx={{
@@ -244,12 +262,9 @@ function Dashboard() {
             </Box>
           </Box>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          marginY={-5}
-          sx={{ minHeight: "100vh", backgroundColor: "background.default" }}
-        >
+
+        {/* GRID ITEM 2, FOR USER SPACES AND SETTINGS */}
+        <Grid item xs={12} marginY={-5} sx={{ minHeight: "100vh", backgroundColor: "background.default" }} >
           <TabPanel value={state.value} index={0}>
             <UserSpaces
               setMessage={setMessage}
@@ -265,9 +280,32 @@ function Dashboard() {
               spaceName={state.spaceName}
             />
           </TabPanel>
+        
+          
           <TabPanel value={state.value} index={1}>
             <UserSettings loggedInUser={auth} setLoggedInUser={setAuth} />
           </TabPanel>
+
+
+
+          {/* if(value==1){
+            <UserSpaces
+            setMessage={setMessage}
+            setSuccess={setSuccess}
+            setError={setError}
+            loggedInUser={auth}
+            listSpaces={state.listSpaces}
+            dispatch={dispatch}
+            originalSpace={state.originalSpace}
+            showCreateSpaceBackdrop={state.showCreateSpaceBackdrop}
+            showJoinSpaceBackdrop={state.showJoinSpaceBackdrop}
+            spaceId={state.spaceId}
+            spaceName={state.spaceName}
+          />
+          }
+          else{
+            <UserSettings loggedInUser={auth} setLoggedInUser={setAuth} />
+          } */}
         </Grid>
       </Grid>
     </>

@@ -67,7 +67,7 @@ function SpaceHeader({ loggedInUser }) {
 
   return (
     <>
-      <Snackbar
+      <Snackbar         // ERROR SNACKBAR
         open={loadError}
         onClose={() => setLoadError(false)}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -79,7 +79,7 @@ function SpaceHeader({ loggedInUser }) {
         </Alert>
       </Snackbar>
 
-      <Snackbar
+      <Snackbar         // SUCCESS SNACKBAR
         open={success}
         onClose={() => setSuccess(false)}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -100,28 +100,32 @@ function SpaceHeader({ loggedInUser }) {
         }}
       >
         <Box
-                component="img"
-                sx={{
-                  height: "60px",
-                  width: "70px",
-                }}
-                alt="No spaces found"
-                src="/logo1.png"
-              />
+          component="img"
+          sx={{
+            height: "60px",
+            width: "70px",
+          }}
+          alt="No spaces found"
+          src="/logo1.png"
+        />
 
+        {/* ACTIVE USERS COMPONENT */}
         <ActiveUsers activeUsers={state.activeUsers} />
 
         <Box sx={{ display: "flex" , alignItems:"center"}}>
+          {/* COPY SPACE ID BUTTON */}
           <IconButton sx={{ color: "text.primary" }} onClick={handleCopy}>
             <ContentCopyIcon />
           </IconButton>
 
+          {/* SAVE SPACE DATA BUTTON */}
           {loggedInUser && (
             <IconButton onClick={handleSave} sx={{ color: "text.primary" }}>
               <SaveIcon />
             </IconButton>
           )}
           <Box>
+            {/* THEME TOGGLE BUTTON */}
             <IconButton
               onClick={colorMode.toggleColorMode}
               sx={{ color: "text.primary" }}
@@ -133,6 +137,7 @@ function SpaceHeader({ loggedInUser }) {
               )}
             </IconButton>
 
+            {/* LEAVE SESSION BUTTON */}
             <Button
               variant="contained"
               sx={{ ml: 1 }}

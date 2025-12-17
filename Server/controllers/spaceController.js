@@ -27,8 +27,8 @@ const createSpaces = async (req, res) => {
 
     const spaceData = [
       {
-        fileName: "Untitled-1",
-        fileData: "",
+        fileName: "Un-named",
+        fileData: "//This is the sample code",
         fileLang: "javascript",
       },
     ];

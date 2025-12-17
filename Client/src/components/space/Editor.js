@@ -1,11 +1,15 @@
 import { useCallback, useState, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { Box } from "@mui/material";
+
+// languages
 import { pythonLanguage } from "@codemirror/lang-python";
 import { javascriptLanguage } from "@codemirror/lang-javascript";
 import { cppLanguage } from "@codemirror/lang-cpp";
 import { javaLanguage } from "@codemirror/lang-java";
 import { LanguageSupport } from "@codemirror/language";
+
+// themes
 import { xcodeLight, xcodeDark } from "@uiw/codemirror-theme-xcode";
 import { githubLight, githubDark } from "@uiw/codemirror-theme-github";
 import { dracula } from "@uiw/codemirror-theme-dracula";
@@ -14,6 +18,8 @@ import { tokyoNight } from "@uiw/codemirror-theme-tokyo-night";
 import { tokyoNightStorm } from "@uiw/codemirror-theme-tokyo-night-storm";
 import { tokyoNightDay } from "@uiw/codemirror-theme-tokyo-night-day";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
+
+// socket
 import { socket } from "../../socket";
 import ACTIONS from "../../utils/Actions";
 import { useDispatch, useSelector } from "react-redux";

@@ -35,11 +35,15 @@ function Space() {
     url: `/spaces/${location.pathname.split("/")[2]}`,
   });
 
+  // runs first when the component mounts, and then when space name changes
+  // changing the title of the tab
   useEffect(() => {
     document.title =
       state.spaceName.length === 0 ? "Loading..." : state.spaceName;
   }, [state.spaceName]);
 
+  // whenver the component mounts, and then when the component unmounts
+  // connecting the particular client (socket) to the server
   useEffect(() => {
     socket.connect();
     return () => {
@@ -47,21 +51,22 @@ function Space() {
     };
   }, []);
 
-  useEffect(() => {
-    socket.emit(ACTIONS.JOIN, {
+  // runs always after the component is mounted (as no dependencies are provided)
+  useEffect(() => { 
+    socket.emit(ACTIONS.JOIN, {                             // emits a join action to the server(whenever mount happens)
       spaceId: location.pathname.split("/")[2],
       name: location.state.name,
       email: location.state.email,
     });
 
-    socket.on(ACTIONS.JOINED, (activeUsers) => {
+    socket.on(ACTIONS.JOINED, (activeUsers) => {              // listens for a joined action from the server
       dispatch({
         type: "updateActiveUsers",
         payload: activeUsers,
       });
     });
 
-    socket.on(ACTIONS.SYNC_CODE, ({ change }) => {
+    socket.on(ACTIONS.SYNC_CODE, ({ change }) => {          // listens for a sync-code action from the server
       setCodeChange(change);
     });
 
@@ -83,7 +88,7 @@ function Space() {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {                                                 // listens for a code-change action from the server
     if (codeChange.length > 0) {
       dispatch({
         type: "updateCurrentData",
@@ -130,7 +135,7 @@ function Space() {
     // eslint-disable-next-line
   }, [response, error]);
 
-  useEffect(() => {
+  useEffect(() => {                                                 // listens for a space-data-change action from the server
     if (state.currentData) {
       const ind = state.spaceData.findIndex(
         (item) => item._id === state.currentData._id

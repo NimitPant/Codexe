@@ -44,15 +44,21 @@ io.on("connection", (socket) => {
     socket.on(ACTIONS.JOIN, async({ spaceId, email, name }) => {
         try {
             socket.join(spaceId);
-            const res = await Space.findOneAndUpdate({ spaceId }, { $push: { activeUsers: { name, email } } }, { new: true });
+            const res = await Space.findOneAndUpdate(
+                { spaceId }, 
+                { $push: { activeUsers: { name, email } } },
+                { new: true }
+            );
 
             io.to(spaceId).emit(ACTIONS.JOINED, res.activeUsers);
-        } catch (e) {
+        } 
+        catch (e) {
             console.log(e);
         }
     });
 
     //Users leaves space
+    // action emitted by client from space header component
     socket.on(ACTIONS.LEAVE, async({ spaceId, name, email }) => {
         try {
             const res = await Space.findOneAndUpdate({ spaceId }, { $pull: { activeUsers: { name, email } } }, { new: true });

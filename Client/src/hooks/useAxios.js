@@ -7,8 +7,10 @@ export const useAxios = (axiosParams) => {
   const [loading, setLoading] = useState(true);
 
   const fetchData = async (params) => {
+    //const { method, url, headers } = params;
     try {
       const result = await axiosConfig.request(params);
+      //const result=await axiosConfig[method](url, headers);
       setResponse(result);
     } catch (e) {
       setError(e);
