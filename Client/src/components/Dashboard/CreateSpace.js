@@ -58,6 +58,7 @@ export default function CreateSpace({
   };
 
   return (
+    /* complete box for create space backdrop */
     <Box
       sx={{
         minWidth: "30vw",
@@ -68,6 +69,7 @@ export default function CreateSpace({
         p: 3,
       }}
     >
+      {/* box for space name and close button */}
       <Box
         sx={{
           display: "flex",
@@ -75,6 +77,7 @@ export default function CreateSpace({
           alignItems: "center",
         }}
       >
+        {/* space name */}
         <Typography
           variant="h2"
           sx={{
@@ -87,6 +90,7 @@ export default function CreateSpace({
           Provide space name.
         </Typography>
 
+        {/* close button */}
         <IconButton
           sx={{ color: "primary.main", mb: 4 }}
           onClick={() =>
@@ -97,6 +101,7 @@ export default function CreateSpace({
         </IconButton>
       </Box>
 
+      {/* space id */}
       <TextField
         disabled
         name="spaceId"
@@ -108,6 +113,7 @@ export default function CreateSpace({
         }
       />
 
+      {/* space name */}
       <TextField
         autoFocus
         name="name"
@@ -119,7 +125,10 @@ export default function CreateSpace({
         }
       />
 
+      {/* box for create space button and copy space id button */}
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        
+        {/* create space button */}
         <Button
           variant="contained"
           sx={{ height: "43px", mr: 2 }}
@@ -128,6 +137,7 @@ export default function CreateSpace({
           Create
         </Button>
 
+        {/* copy space id button */}
         <Button
           variant="outlined"
           sx={{ height: "43px" }}
@@ -136,6 +146,7 @@ export default function CreateSpace({
         >
           Space Id
         </Button>
+
       </Box>
     </Box>
   );

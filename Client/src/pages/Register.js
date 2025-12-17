@@ -77,7 +77,7 @@ function Register() {
       <Snackbar
         open={error}
         onClose={() => setError(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         autoHideDuration={3000}
       >
         <Alert variant="filled" severity="error" sx={{ width: "100%" }}>

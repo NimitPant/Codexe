@@ -9,11 +9,13 @@ import {
   IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import SearchIcon from "@mui/icons-material/Search";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+
 import ListSpaces from "./ListSpaces";
 import CreateSpace from "./CreateSpace";
-import SearchIcon from "@mui/icons-material/Search";
 import JoinSpace from "./JoinSpace";
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+
 
 function UserSpaces({
   setMessage,
@@ -76,6 +78,7 @@ function UserSpaces({
       </Backdrop>
       <Box sx={{ display: "flex", justifyContent: "center",flexDirection: "column"}}>
         <Box sx={{  display: "flex", flexDirection: "column", height: "100vh"}}>
+          {/* BOX FOR FUNTIONAL ROW */}
           <Box
             sx={{
               p: 1,
@@ -110,7 +113,9 @@ function UserSpaces({
                 </InputAdornment>
               }
             />
+            {/* BOX FOR RIGHT SIDE BUTTONS */}
             <Box>
+              {/* JOIN A SESSION BUTTON */}
               <Button
                 variant="outlined"
                 startIcon={<RocketLaunchIcon />}
@@ -121,6 +126,8 @@ function UserSpaces({
               >
                 Join a Session
               </Button>
+              
+              {/* CREATE A NEW SESSION BUTTON */}
               <Button
                 variant="contained"
                 startIcon={<AddIcon />}
@@ -133,6 +140,7 @@ function UserSpaces({
             </Box>
           </Box>
 
+          {/* BOX FOR LIST OF SESSIONS */}
           <Box sx={{ flex: 1, mb:"20vh",overflowY: "scroll", p: 2 }}>
             <ListSpaces
               setMessage={setMessage}

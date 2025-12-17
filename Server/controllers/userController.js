@@ -6,6 +6,8 @@ const User = require("../models/userSchema");
  * @route POST /api/users/register
  * @access Public
  * */
+
+// req(user) is an object with name, email and password
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
